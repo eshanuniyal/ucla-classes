@@ -1,0 +1,189 @@
+\documentclass[11pt]{amsart}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Packages
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{enumerate}
+\usepackage{fullpage}
+\usepackage{csquotes}
+\usepackage{graphicx}
+
+\usepackage{clrscode3e}
+
+\usepackage{listings}
+\usepackage{xcolor}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+
+\lstset{style=mystyle}
+
+\theoremstyle{theorem}
+\newtheorem{exercise}{Exercise}
+\newtheorem{question}{Question}
+\newtheorem*{claimunnumbered}{Claim}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Math Macros
+\newcommand\N{\mathbb{N}}
+\newcommand\Z{\mathbb{Z}}
+\newcommand\Q{\mathbb{Q}}
+\newcommand\R{\mathbb{R}}
+\newcommand\C{\mathbb{C}}
+\newcommand\E{\mathbb{E}}
+\renewcommand\P{\mathbb{P}}
+\newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+\newcommand{\ceil}[1]{\left\lceil #1 \right\rceil}
+\newcommand\Mod{\operatorname{mod}}
+
+\DeclareMathOperator\Uniform{Uniform}
+\DeclareMathOperator\Geometric{Geometric}
+\DeclareMathOperator\Normal{Normal}
+\DeclareMathOperator\Exponential{Exponential}
+\DeclareMathOperator\Erlang{Erlang}
+\DeclareMathOperator\Range{Range}
+\DeclareMathOperator\Cov{Cov}
+\DeclareMathOperator\Var{Var}
+\DeclareMathOperator\Inv{Inv}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%homework macros
+\newcommand\duedate{July 7, 2020} %Change this accordingly
+\newcommand\homeworknumber{2} %Change this accordingly
+
+% Tikz for graphs and such
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\usetikzlibrary{graphs,graphs.standard}
+\tikzstyle{vertex}=[circle, draw, fill=black, inner sep=0pt, minimum width=3pt]
+
+%\author{Your name here}
+%\email{your.email.address.here@ucla.edu}
+
+\title{Math182 Midterm %\#\homeworknumber
+\\ Due \duedate}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\begin{document}
+\maketitle
+
+
+\begin{question}
+Consider the following pseudo-code:
+\Procname{\proc{Max-Left-Array}(A)}
+\begin{codebox}
+\li $\id{sum}\gets A[1]$
+\li $\id{max}\gets \id{sum}$
+\li \For $j\gets 2$ \To $\attrib{A}{length}$
+\li	\Do
+		$\id{sum}\gets\id{sum}+A[j]$
+\li		\If $\id{sum}>\id{max}$
+\li			\Then
+				$\id{max}\gets\id{sum}$
+			\End
+	\End
+\li \Return $\id{max}$
+\end{codebox}
+This algorithm takes as input an array $A[1\twodots n]$ and outputs the value of the maximum subarray of the form $A[1\twodots j]$, i.e., it outputs the number
+\[
+\max\left\{\sum_{i=1}^{j}A[i]:1\leq j\leq \attrib{A}{length}\right\}
+\]
+\begin{enumerate}
+\item Give a proof of the correctness of this algorithm. Your proof should include: a precise statement of a loop invariant for the \For loop, and a proof of this loop invariant. (5pts)
+\item Analyze the running-time of this algorithm. This includes deducing a tight asymptotic bound. (5pts)
+\item Is this algorithm asymptotically optimal (i.e., is there another algorithm with asymptotically smaller running time which can do the same thing this algorithm does)? Justify your answer. (2pts)
+\end{enumerate}
+\end{question}
+
+
+\begin{question}
+Recall that for $0\leq k\leq n$, the \textbf{binomial coefficent} ${n\choose k}$ is defined by
+\[
+{n\choose k} \ := \ \frac{n!}{k!(n-k)!}
+\]
+In particular, we have ${n\choose 0}={n\choose n}=1$ for every $n$.
+\begin{enumerate}
+\item Prove for every $0<k<n$:
+\[
+{n\choose k} \ = \ {n-1\choose k}+{n-1\choose k-1}
+\]
+You can use any valid method you know to prove this (from the definition, combinatorial, generating function, etc.) (5pts)
+\item Write pseudocode for a \underline{recursive} algorithm $\proc{Binomial}(n,k)$ which returns ${n\choose k}$. Your algorithm should use the above fact you proved in (1). (5pts)
+\item Give a proof of correctness of your algorithm in (2). You should prove the statement: ``For every $n\geq 0$ and for every $0\leq k\leq n$, $\proc{Binomial}(n,k)$ returns ${n\choose k}$.'' (5pts)
+\end{enumerate}
+\end{question}
+
+
+\begin{question}
+Use a recursion tree and the substitution method to guess and verify an asymptotically tight bound for the following recurrence (5pts):
+\[
+T(n) \ = \ 2T(n-1)+1
+\]
+\end{question}
+
+
+\begin{question}
+For the following recurrence determine an asymptotically tight bound using any method (recursion tree and substitution, master method, etc.). (5pts)
+\[
+T(n) \ = \ 25T(n/5)+\frac{n^2}{\operatorname{lg}n}
+\]
+\end{question}
+
+\begin{question}
+For the following functions $f(n)$ and $g(n)$, determine whether they satisfy:
+\begin{enumerate}
+\item $f(n)=o(g(n))$,
+\item $f(n)=\Theta(g(n))$, or
+\item $f(n)=\omega(g_n)$.
+\end{enumerate}
+The functions are:
+\[
+f(n) \ = \ (\operatorname{lg}n)^{\sqrt{\operatorname{lg}n}}\quad \text{and}\quad g(n) \ = \ \sqrt{n}
+\]
+Justify your answer. (5pts)
+\end{question}
+
+\begin{question}
+(True/False) For each of the following statements indicate whether they are \textbf{true} or \textbf{false}. Each question is worth 2pts, a blank answer will receive 1pt. Recall that ``true'' means ``always true'' and ``false'' means ``there exists a counterexample''.
+\begin{enumerate}
+\item For every $n\geq 1$ and $a,b\in\Z$, if $ab\Mod n=0$, then either $a\Mod n=0$ or $b\Mod n=0$.
+\item Let $(F_n)_{n\geq 0}$ be the sequence of Fibonacci numbers, so $F_0=0, F_1=1$ and for every $n\geq 2$, $F_{n}=F_{n-1}+F_{n-2}$. Then for every $n\geq 2$, $F_{2n}=F_{2(n-1)}+F_{2(n-2)}$.
+\item Suppose $f(n)$ and $g(n)$ are asymptotically positive, polynomially bounded functions. If $f(n)=\Theta(g(n))$, then $2^{2^{f(n)}}=\Theta(2^{2^{g(n)}})$.
+\item $\Omega(n)=O(n^2)$.
+\item The best-case running time of \proc{Insertion-Sort} is $O(n\operatorname{lg}n)$.
+\item $\proc{Merge-Sort}$ is an asymptotically optimal comparison-based sorting algorithm.
+\end{enumerate}
+\end{question}
+
+
+
+
+
+\end{document}

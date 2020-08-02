@@ -1,0 +1,137 @@
+\documentclass[11pt]{amsart}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Packages
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{enumerate}
+\usepackage{fullpage}
+\usepackage{csquotes}
+\usepackage{graphicx}
+
+\usepackage{clrscode3e}
+
+\usepackage{listings}
+\usepackage{xcolor}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+
+\lstset{style=mystyle}
+
+\theoremstyle{theorem}
+\newtheorem{exercise}{Exercise}
+\newtheorem{question}{Question}
+\newtheorem*{claimunnumbered}{Claim}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Math Macros
+\newcommand\N{\mathbb{N}}
+\newcommand\Z{\mathbb{Z}}
+\newcommand\Q{\mathbb{Q}}
+\newcommand\R{\mathbb{R}}
+\newcommand\C{\mathbb{C}}
+\newcommand\E{\mathbb{E}}
+\renewcommand\P{\mathbb{P}}
+\newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+\newcommand{\ceil}[1]{\left\lceil #1 \right\rceil}
+\newcommand\Mod{\operatorname{mod}}
+
+\DeclareMathOperator\Uniform{Uniform}
+\DeclareMathOperator\Geometric{Geometric}
+\DeclareMathOperator\Normal{Normal}
+\DeclareMathOperator\Exponential{Exponential}
+\DeclareMathOperator\Erlang{Erlang}
+\DeclareMathOperator\Range{Range}
+\DeclareMathOperator\Cov{Cov}
+\DeclareMathOperator\Var{Var}
+\DeclareMathOperator\Inv{Inv}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%homework macros
+\newcommand\duedate{July 31, 2020} %Change this accordingly
+\newcommand\homeworknumber{2} %Change this accordingly
+
+% Tikz for graphs and such
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\usetikzlibrary{graphs,graphs.standard}
+\tikzstyle{vertex}=[circle, draw, fill=black, inner sep=0pt, minimum width=3pt]
+
+%\author{Your name here}
+%\email{your.email.address.here@ucla.edu}
+
+\title{Math182 Final %\#\homeworknumber
+\\ Due \duedate}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\begin{document}
+\maketitle
+
+
+\begin{question}
+(5pts) Write an algorithm which implements depth-first search without recursion. You might find a \emph{stack} data structure to be useful. Your algorithm should take as input a graph $G=(V,E)$ and upon termination should successfully assign the \emph{predecessor}, \emph{discovery time}, and \emph{finishing time} attributes to all vertices. You can also use the \emph{color} attribute.
+\end{question}
+
+\begin{question}
+(5pts) Give the optimal parenthesization for a matrix chain product $\langle A_1,A_2,A_3,A_4, A_5, A_6\rangle$, where
+\begin{itemize}
+\item $A_1$ has size $5\times 10$
+\item $A_2$ has size $10\times 3$
+\item $A_3$ has size $3\times 12$
+\item $A_4$ has size $12\times 5$
+\item $A_5$ has size $5\times 50$
+\item $A_6$ has size $50\times 6$
+\end{itemize}
+\end{question}
+
+\begin{question}
+(5pts) Suppose $G=(V,E)$ is a connected, undirected graph. Show that if an edge $(u,v)$ is contained in some minimum spanning tree of $G$, then it is a light edge crossing some cut of the graph.
+\end{question}
+
+\begin{question}
+(5pts) Describe an efficient algorithm that, given a set $\{x_1,x_2,\ldots,x_n\}$ of points on the real line, determines the smallest set of unit-length closed intervals that contains all of the given points. Argue that your algorithm is correct.
+\end{question}
+
+\begin{question}
+(True/False) For each of the following statements indicate whether they are \textbf{true} or \textbf{false}. Each question is worth 2pts, a blank answer will receive 1pt. Recall that ``true'' means ``always true'' and ``false'' means ``there exists a counterexample''.
+\begin{enumerate}
+\item Since \proc{Max-Heapify} runs in $O(\lg n)$ time, the process \proc{Build-Max-Heap} runs in $\Theta(n\lg n)$ time.
+\item In the rod-cutting problem, the naive recursive solution \proc{Cut-Rod} runs in polynomial time.
+\item If a problem has a greedy algorithm solution, then it necessarily does not have a dynamic programming solution; and vice versa.
+\item The algorithm \proc{BFS} visits every vertex of the graph.
+\item During DFS, if a vertex $v$ has its color changed from white to gray while $u$ is gray, then $\attrib{u}{f}<\attrib{v}{f}$.
+\end{enumerate}
+\end{question}
+
+
+
+
+
+\end{document}
