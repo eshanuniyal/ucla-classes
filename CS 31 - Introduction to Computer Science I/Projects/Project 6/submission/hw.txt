@@ -1,0 +1,191 @@
+// Problem 1a
+
+int main()
+{
+	int arr[3] = { 5, 10, 15 };
+	int* ptr = arr;
+
+	*ptr = 10;          // set arr[0] to 10
+	*(ptr + 1) = 20;      // set arr[1] to 20
+	ptr += 2;
+	ptr[0] = 30;        // set arr[2] to 30
+
+	while (ptr >= arr)
+	{
+		cout << ' ' << *ptr;    // print values
+		ptr--;
+	}
+	cout << endl;
+}
+
+// Problem 1b
+
+The findDisorder function doesn't work because the parameter p is passed by value, not reference. The statements "p = arr + k;" and "p = nullptr" therefore only modify a local copy of p, not the pointer declared in the main routine. Changing the declaration of the function to the following fixes this:
+
+	void findDisorder(int arr[], int n, int*& p)
+
+// Problem 1c
+
+The main routine doesn't work since the pointer p is declared without initialising it to a particular address, resulting in undefined behaviour. This is easily fixed by creating a double variable and initialising it to the address of that variable:
+
+int main()
+{
+	double default_value;
+	double* p = &default_value; // initialises pointer p to address of default_value
+	hypotenuse(1.5, 2.0, p);
+	cout << "The hypotenuse is " << *p << endl;
+}
+
+// Problem 1d
+str1 and str2 are passed in as constant arrays in the function, and str1++ and str2++ are therefore invalid statements. We therefore need to declare two new pointers (str1_p and str2_p) to constant characters at the first indices of str1 and str2.
+Every such comparison in the function is between addresses (e.g. str1 != str2) instead of the elements stored there.
+
+bool match(const char str1[], const char str2[])
+{
+	const char* str1_p = &str1[0];
+	const char* str2_p = &str2[0];
+	
+	while (*str1_p != 0 && *str2_p != 0)  // zero bytes at ends
+	{
+		if (*str1_p != *str2_p)  // compare corresponding characters
+			return false;
+		str1_p++;            // advance to the next character
+		str2_p++;
+	}
+	return *str1_p == *str2_p;   // both ended at same time?
+}
+
+// Problem 1e
+Firstly, while the function computeSquares returns a pointer to the first element of array arr, the rest of the array cannot be accessed by the main routine as it was declared locally within computeSquares.
+Secondly, because memory was not allocated for the array arr in the main routine, calling f() might cause the element in pointer ptr (and those that come after it) to be overwritten by junk values in f(). The outcome may vary from compiler to compiler, since this is undefined behaviour.
+
+// -----------------------------------------------------------
+// Problem 2
+1.  string* fp;
+2.  string fish[5];
+3.  fp = &fish[4];
+4.  *fp = "yellowtail";
+5.  *(fish + 3) = "salmon";
+6.  fp = fp - 3;
+7.  fp[1] = "sole";
+8.  fp[0] = "eel";
+9.  bool d = (fp == fish);
+10. bool b = (*fp == *(fp + 1));
+
+// -----------------------------------------------------------
+
+// Problem 3a
+
+double computeAverage(const double* scores, int nScores)
+{
+	const double* ptr = scores;
+	double tot = 0;
+	for (int i = 0; i < nScores; i++)
+		tot += *(ptr + i);
+	return tot / nScores;
+}
+
+// Problem 3b
+
+const char* findTheChar(const char str[], char chr)
+{
+	for (int k = 0; *(str + k) != 0; k++)
+		if (*(str + k) == chr)
+			return str + k;
+
+	return nullptr;
+}
+
+// Problem 3c
+
+const char* findTheChar(const char str[], char chr)
+{
+	for (; *str != 0; str++)
+		if (*str == chr)
+			return str;
+
+	return nullptr;
+}
+
+// -----------------------------------------------------------
+// Problem 4
+
+#include <iostream>
+
+using namespace std;
+
+int* minimart(int* a, int* b) // returns whichever pointer that points to a smaller integer
+{
+    if (*a < *b)
+        return a;
+    else
+        return b;
+}
+
+void swap1(int* a, int *b) // exchanges the pointers without changing the values
+	// pass by value, doesn't change original values; function effectively does nothing
+{
+    int* temp = a;
+    a = b;
+    b = temp;
+}
+
+void swap2(int* a, int *b) // exchanges the values without changing the pointers
+{
+    int temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
+int main()
+{
+    int array[6] = { 5, 3, 4, 17, 22, 19 };
+
+    int* ptr = minimart(array, &array[2]); // will return pointer to element at index 2, i.e. 4 (because 4 < *array = array[0] = 5)
+    ptr[1] = 9; // array now holds {5, 9, 4, 17, 22, 19}
+    ptr += 2; // ptr now points to element at index 4
+    *ptr = -1; // element at index 4 (i.e. 22) changed  to -1 --> array now holds {5, 9, 4, 17, -1, 19}
+    *(array+1) = 79; // element at index one now holds 79 --> array now holds {5, 79, 4, 17, -1, 19}
+
+
+    cout << "diff=" << &array[5] - ptr << endl; // prints diff=1, since ptr points to array[4]
+
+    swap1(&array[0], &array[1]); // doesn't do anything, since the swap1 parameters are passed by value
+    swap2(array, &array[2]); // swaps elements at index 0 and index 2 --> array now holds {4, 79, 5, 17, -1, 19}
+
+    for (int i = 0; i < 6; i++)
+        cout << array[i] << endl; // prints 4\n79\n5\n17\n21\n19\n
+} 
+
+The program therefore prints as follows:
+diff=1
+4
+79
+5
+17
+-1
+19
+
+// -----------------------------------------------------------
+// Problem 5
+
+void deleteG(char* arr) {
+
+	// running through array to check for g's
+	while (*arr != 0) {
+		
+		// checking if current character is a g
+		if (tolower(*arr) == 'g') {
+			
+			// moving all characters after current character to the left
+			char* current_ptr = arr; // stores pointer to element current index
+
+			// while current element is not zero byte
+			while (*current_ptr != 0) {
+				*current_ptr = *(current_ptr + 1); // move next element left
+				current_ptr++; // incremenet current_ptr
+			}
+		}
+		arr++; // increment arr
+	}
+}

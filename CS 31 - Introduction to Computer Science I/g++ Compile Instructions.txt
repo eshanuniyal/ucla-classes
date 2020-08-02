@@ -1,0 +1,14 @@
+1. Open PuTTY
+2. Load CS 31 Profile and click Open
+3. Login as classuni
+4. cd into Desktop/CS31/<relevant assignment folder>
+	e.g. cd Desktop/CS31/Assignment_1
+5. In Command Prompt, enter the command scp Desktop/<filename> classuni@cs31.seas.ucla.edu:Desktop/CS31/<relevant assignment folder>
+	e.g. scp Desktop/original.cpp classuni@cs31.seas.ucla.edu:Desktop/CS31/Assignment_1
+If that command results in a scary warning about DNS spoofing, 
+then run the command "ssh classsuni@cs31.seas.ucla.edu date" and answer yes to the question it asks. Then try the scp command again.
+If it still doesn't work, go to Users/eshan/.ssh and delete the known_hosts file. Then try the ssh command again. 
+6. Back in the PuTTY OpenSSH Client, enter g31 -o <desired executable name> <file name> 
+	e.g. g31 -o original original.cpp
+7. To compile, enter ./<executable name>
+	e.g. ./original
